@@ -1,0 +1,636 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 화면 중앙 정렬*/
+body {
+  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* 포스터 전체 컨테이너 */
+.container {
+  width: 100%;
+  background-color: #eeeeee; /* 포스터 배경색 */
+  padding: 10px 10px; /* 포스터 안쪽 여백 (상하 20px, 좌우 40px) */
+
+  height: 100vh; /* 화면 전체 높이로 설정 */
+  display: flex; /* 내부 요소들을 Flex로 배치 */
+  flex-direction: column; /* 가로가 아니라 '세로'로 쌓기 */
+  overflow: hidden; /* 삐져나가는 것 방지 (스크롤바 없애기) */
+}
+
+/* ----------------------------------------------------------------------------- */
+
+/* 메인 타이틀 */
+.title {
+  width: 100%;
+  margin-bottom: 10px; /* 타이틀 아래 간격 */
+  line-height: 0; /* SVG 하단 여백 제거 */
+
+  /* ★★★ 하단 가로선 ★★★ */
+  border-bottom: 2px solid #1a1a1a; /* 선 두께(5px)와 색상(#1a1a1a) */
+  padding-bottom: 8px; /* 글자와 선 사이의 간격 */
+}
+
+/* SVG가 부모 영역에 꽉 차도록 설정 */
+.svg-text-block {
+  width: 60%;
+  height: auto; /* 비율 유지 */
+  display: block; /* 인라인 요소 하단 여백 문제 해결 */
+}
+
+/* ----------------------------------------------------------------------------- */
+
+/* 중간 영역 */
+.info {
+  display: flex; /* 가로 배치 */
+  height: 70px; /* 높이 고정 */
+  margin-bottom: 10px; /* 하단 구분선과의 간격 */
+  align-items: center; /* 세로 중앙 정렬 */
+}
+
+/* 컬러 팔레트 */
+.color-palette {
+  display: flex; /* 컬러칩들 가로 나열 */
+  height: 100%; /* 부모 높이 꽉 채움 */
+  margin-right: 10px; /* 오른쪽 투어 제목과의 간격 */
+}
+
+.color-palette span {
+  display: block;
+  width: 70px; /* 각 색상 칸의 너비 */
+  height: 100%; /* 높이 꽉 채움 */
+}
+
+/* 각 색상 정의 */
+.c-1 {
+  background-color: #ff1a1a;
+}
+.c-2 {
+  background-color: #ff6b6b;
+}
+.c-3 {
+  background-color: #ffcccc;
+}
+.c-4 {
+  background-color: #000000;
+}
+.c-5 {
+  background-color: #404040;
+}
+.c-6 {
+  background-color: #777777;
+}
+.c-7 {
+  background-color: #8c7b75;
+}
+.c-8 {
+  background-color: #b0a499;
+}
+.c-9 {
+  background-color: #d4b5b5;
+}
+
+/* 투어 타이틀(SVG) */
+.subtitle {
+  flex-grow: 1; /* 남은 공간을 모두 차지함 */
+  height: 100%;
+  display: flex;
+  align-items: center; /* 내부 SVG 세로 중앙 정렬 */
+}
+
+.subtitle .svg-text-block {
+  height: 100%; /* 높이를 꽉 채우도록 설정 (기존엔 width: 100% 였을 수 있음) */
+  width: auto; /* 너비는 비율에 맞춰 자동으로 조절 */
+  display: block;
+}
+
+/* ----------------------------------------------------------------------------- */
+
+/* 투어 설명 */
+.detail {
+  margin-bottom: 10px; /* 하단 구분선과의 간격 */
+
+  /* 1. 폰트 및 스타일 */
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 570; /* 굵기: 400(기본) < 600(세미볼드) < 700(볼드) */
+  font-size: 1.15rem; /* 글자 크기 (약 18~19px) */
+  color: #1a1a1a; /* 글자 색상 */
+
+  /* 2. 가독성 및 레이아웃 */
+  line-height: 1; /* 줄 간격 */
+  letter-spacing: -0.5px; /* 자간 */
+  text-align: justify; /* 양쪽 정렬 */
+  word-break: break-word; /* 단어가 길어도 줄바꿈 잘 되게 */
+}
+
+/* ----------------------------------------------------------------------------- */
+
+/* 갤러리 패널 */
+.gallery-container {
+  display: flex; /* 패널들을 가로로 배치 */
+  width: 100%;
+  /* height: 600px; 갤러리 전체 높이 */
+  flex: 1;
+  gap: 0; /* 패널 사이의 간격 없음 */
+}
+
+/* -- 패널 공통 설정 -- */
+.panel {
+  flex: 0.7; /* 기본적으로 0.7의 비율 (작게) */
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: flex 0.7s cubic-bezier(0.25, 1, 0.5, 1); /* 부드러운 전환 */
+}
+
+.panel:last-child {
+  border-right: none;
+}
+
+/* 1. 기본 상태: 패널 1은 열려있어야 함 */
+.panel-1 {
+  background-color: #000000;
+  flex: 6; /* 기본적으로 넓게 설정 */
+}
+
+.panel-2 {
+  background-color: #999999;
+  flex: 0.7;
+}
+
+.panel-3 {
+  background-color: #555555;
+  flex: 0.7;
+}
+
+/* 2. 컨테이너에 마우스가 들어왔을 때:
+      일단 패널 1의 우선권을 박탈하고 1로 줄임 (리셋) */
+.gallery-container:hover .panel-1 {
+  flex: 0.7;
+}
+
+/* 3. 그 상태에서 마우스가 올라간 '특정 패널'만 확장 
+      (우선순위를 위해 .gallery-container를 앞에 붙임) */
+.gallery-container .panel:hover {
+  flex: 6;
+}
+
+/* ---------- 커버 이미지 동작 ---------- */
+/* 1. 커버 이미지 스타일 */
+.cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 이미지가 비율 유지하며 꽉 참 */
+  z-index: 50; /* 내용물보다 위에 덮임 */
+  transition: opacity 0.5s ease; /* 부드럽게 사라짐 */
+  opacity: 1; /* 기본적으로 보임 */
+  filter: brightness(0.9); /* (선택사항) 살짝 어둡게 */
+}
+
+/* 2. 내부 콘텐츠 묶음 스타일 */
+.panel-content {
+  width: 100%;
+  height: 100%;
+  opacity: 0; /* 기본적으로 안 보임 (커버 뒤에 숨음) */
+  transition: opacity 0.5s ease;
+  position: relative; /* 내부 절대위치 요소들의 기준점 */
+  z-index: 10;
+}
+
+/* --------- 동작 로직 (우선순위 순서대로) --------- */
+
+/* [상황 A] 처음 로딩 시: 패널 1은 열려있어야 함 */
+/* 패널 1의 커버는 투명하게 안 보이게 처리 */
+.panel-1 .cover {
+  opacity: 0;
+  pointer-events: none; /* 마우스가 통과해서 내부 클릭 가능하게 */
+}
+/* 패널 1의 내용은 보이게 처리 */
+.panel-1 .panel-content {
+  opacity: 1;
+}
+
+/* [상황 B] 갤러리 영역에 마우스 진입 시: 일단 모두 닫힘 상태로 리셋 */
+/* (패널 1도 이때는 닫히는 척하며 커버를 다시 씌움) */
+.gallery-container:hover .panel-1 .cover {
+  opacity: 1;
+  pointer-events: auto;
+}
+.gallery-container:hover .panel-1 .panel-content {
+  opacity: 0;
+}
+
+/* [상황 C] 마우스가 올라간 '특정 패널'만 활성화 */
+/* 커버를 벗기고(0) 내부 콘텐츠를 보여줌(1) */
+.gallery-container .panel:hover .cover {
+  opacity: 0;
+  pointer-events: none;
+}
+.gallery-container .panel:hover .panel-content {
+  opacity: 1;
+}
+
+/* --------------패널 1-------------- */
+
+/*  커버 이미지 */
+
+/* 패널 1 이미지 설정 */
+.AH {
+  position: absolute;
+}
+
+/* 패널1 이미지 배치 */
+
+/* 달 */
+.AH-1 {
+  top: 40%;
+  left: 78%;
+  width: 20%;
+  z-index: 4;
+}
+
+/* 위스키 */
+.AH-2 {
+  top: 55%;
+  left: 25%;
+  width: 25%;
+  z-index: 1;
+}
+
+/* 지하철 */
+.AH-3 {
+  top: 65%;
+  left: 65%;
+  width: 22%;
+  z-index: 5;
+}
+
+/* 광고판 */
+.AH-4 {
+  top: 3%;
+  left: 50%;
+  width: 43%;
+  z-index: 2;
+}
+
+/* 주사위 */
+.AH-5 {
+  top: 2%;
+  left: 2%;
+  width: 30%;
+  z-index: 6;
+}
+
+/* 메인 */
+.AH-6 {
+  top: 10%;
+  left: 43%;
+  width: 26%;
+  z-index: 3;
+}
+
+/* 도로 */
+.AH-7 {
+  top: 20%;
+  left: 20%;
+  width: 30%;
+  z-index: 7;
+}
+
+/* 지하철2 */
+.AH-8 {
+  top: 50%;
+  left: 3%;
+  width: 27%;
+  z-index: 8;
+}
+
+/* 1. 로고 위치 */
+.logo {
+  position: absolute;
+  top: 13%; /* 위에서 15% 위치 */
+  left: 80.5%; /* 가로 중앙 */
+  transform: translateX(-50%); /* 정확한 중앙 정렬 */
+  width: 14%; /* 로고 크기 */
+  z-index: 200; /* 모든 이미지보다 위에 뜨도록 */
+  pointer-events: none; /* 마우스가 로고를 통과해서 뒤에 있는 패널을 클릭할 수 있게 함 */
+}
+
+/* 2. 네온 스타일 및 애니메이션 적용 */
+.neon {
+  width: 100%;
+  height: auto;
+  color: #ff0033;
+
+  /* 기본 네온 빛 (붉은색) */
+  /* drop-shadow(x y 번짐정도 색상) */
+  filter: drop-shadow(0 0 2px #fff) drop-shadow(0 0 5px #fff)
+    drop-shadow(0 0 15px #ff0033) drop-shadow(0 0 30px #ff0033);
+
+  /* 깜빡이는 애니메이션 연결 */
+  animation: flicker 3s infinite alternate;
+}
+
+/* 3. 지지직거리는 깜빡임 애니메이션 */
+@keyframes flicker {
+  /* 켜짐 (밝음) */
+  0%,
+  18%,
+  22%,
+  25%,
+  53%,
+  57%,
+  100% {
+    opacity: 1;
+    filter: drop-shadow(0 0 2px #ff0033) drop-shadow(0 0 5px #ff0033)
+      drop-shadow(0 0 15px #ff0033) drop-shadow(0 0 30px #ff0033);
+  }
+
+  /* 살짝 꺼짐 (어두움) */
+  20%,
+  24%,
+  55% {
+    opacity: 0.5;
+    filter: drop-shadow(0 0 1px #ff0033) drop-shadow(0 0 2px #ff0033)
+      drop-shadow(0 0 5px #ff0033);
+  }
+
+  /* 완전히 꺼짐 (정전) - 아주 짧은 순간 */
+  21%,
+  23%,
+  56% {
+    opacity: 0.1;
+    filter: none;
+  }
+}
+
+/* --------------패널 2-------------- */
+
+/* 패널 2 이미지 설정 */
+.DFM {
+  position: absolute;
+}
+
+/* 패널 2 이미지 배치 */
+
+/* 메인 */
+.DFM-3 {
+  top: 7%;
+  left: 30%;
+  width: 40%;
+  z-index: 4;
+}
+
+/* 배경 */
+.DFM-4 {
+  width: 100%;
+  z-index: 1;
+}
+
+/* 블록 */
+.DFM-5 {
+  top: 16%;
+  left: 0%;
+  width: 16%;
+  z-index: 3;
+}
+
+/* 블록 2 */
+.DFM-6 {
+  top: 75%;
+  left: 0%;
+  width: 16%;
+  z-index: 5;
+}
+
+/* 로고 설정 */
+.logo2 {
+  position: absolute;
+  z-index: 200; /* 모든 이미지보다 위에 뜨도록 */
+  pointer-events: none; /* 마우스가 로고를 통과해서 뒤에 있는 패널을 클릭할 수 있게 함 */
+  overflow: visible;
+}
+
+/* SVG가 무조건 부모 박스 크기에 꽉 차게 맞춤 */
+.logo2 svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* DAWN 로고 크기 및 위치 */
+.dawn {
+  top: 45%;
+  left: 60%;
+  width: 37%; /* 패널 너비의 % 크기 */
+  z-index: 3;
+}
+
+/* FM 로고 크기 및 위치 */
+.fm {
+  top: 65%;
+  left: 69%;
+  width: 20%; /* 패널 너비의 % 크기 */
+  z-index: 3;
+}
+
+/* --------------- Panel 2 Dawn FM 로고 효과 --------------- */
+
+/* 1. 빛 번짐 효과 (파란색) */
+/* 글자 색을 바꾸고 그림자 */
+.logo2 svg path {
+  fill: #e0f0ff; /* 아주 연한 얼음색 */
+  stroke: none; /* 테두리 없음 */
+
+  /* 파란색 빛 번짐 */
+  filter: drop-shadow(0 0 5px #0055ff) drop-shadow(0 0 15px #0022aa);
+}
+
+/* 2. 둥둥 떠다니는 애니메이션 */
+@keyframes simpleFloat {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  } /* 위로 10px 이동 */
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* 3. 애니메이션 & 잘림 방지 적용 */
+/* 부모 div(.logo2)가 아니라 내부 svg를 움직임 */
+.logo2 svg {
+  display: block;
+  width: 100%;
+  height: auto;
+
+  /* 빛 번짐이 박스 밖으로 나가도 잘리지 않게 함 */
+  overflow: visible;
+
+  /* 애니메이션 실행 */
+  animation: simpleFloat 4s ease-in-out infinite;
+}
+
+/* 4. FM 로고는 반 박자 늦게 움직이게 */
+.fm svg {
+  animation-delay: 2s;
+}
+
+/* -------------- 패널 3 -------------- */
+
+/* 패널 3 이미지 설정 */
+.HUT {
+  position: absolute;
+}
+
+/* 패널 2 이미지 배치 */
+
+/* 배경 */
+.HUT-1 {
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  z-index: 1;
+}
+
+/* 카티 */
+.HUT-2 {
+  top: 50%;
+  transform: translateY(-50%);
+  left: 10%;
+  width: 7%;
+  z-index: 2;
+}
+
+/* 피아노 */
+.HUT-3 {
+  top: 50%;
+  transform: translateY(-50%);
+  left: 18.5%;
+  width: 7%;
+  z-index: 3;
+}
+
+/* 조각상 */
+.HUT-4 {
+  top: 50%;
+  transform: translateY(-50%);
+  left: 27%;
+  width: 7%;
+  z-index: 4;
+}
+
+/* 성 */
+.HUT-5 {
+  top: 50%;
+  transform: translateY(-50%);
+  left: 35.5%;
+  width: 7%;
+  z-index: 5;
+}
+
+/* 달리기 */
+.HUT-6 {
+  top: 50%;
+  transform: translateY(-50%);
+  right: 10%;
+  width: 46%;
+  z-index: 6;
+}
+
+/* 로고 설정 */
+.logo3 {
+  position: absolute;
+  z-index: 200; /* 모든 이미지보다 위에 뜨도록 */
+  pointer-events: none; /* 마우스가 로고를 통과해서 뒤에 있는 패널을 클릭할 수 있게 함 */
+  overflow: visible;
+}
+
+/* SVG가 무조건 부모 박스 크기에 꽉 차게 맞춤 */
+.logo3 svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* HU 로고 크기 및 위치 */
+.HU {
+  top: 2%;
+  left: 1.1%;
+  width: 40%; /* 패널 너비의 % 크기 */
+  z-index: 100;
+}
+
+/* T 로고 크기 및 위치 */
+.T {
+  bottom: 2%;
+  right: 1.1%;
+  width: 46%; /* 패널 너비의 % 크기 */
+  z-index: 100;
+}
+
+/* 3. 달리는 사람 긴박한 속도감 */
+.HUT-6 {
+  /* 기본 위치 유지하면서 애니메이션 적용 */
+  animation: runShake 0.15s infinite; /* 0.1초마다 매우 빠르게 떨림 */
+}
+
+@keyframes runShake {
+  0% {
+    transform: translateY(-50%) translateX(0px);
+    filter: blur(0px);
+  }
+  50% {
+    transform: translateY(-50%) translateX(-1px);
+    filter: blur(0.7px);
+  } /* 1px 흔들림 + 살짝 흐림 */
+  100% {
+    transform: translateY(-50%) translateX(0px);
+    filter: blur(0px);
+  }
+}
+
+/* 4. 작은 오브젝트들 무중력 효과 */
+
+.HUT-2,
+.HUT-3,
+.HUT-4,
+.HUT-5 {
+  animation: floatSlow 4s ease-in-out infinite;
+}
+
+/* 요소마다 엇박자로 움직이게 설정 */
+.HUT-2 {
+  animation-delay: 0s;
+}
+.HUT-3 {
+  animation-delay: 1.7s;
+}
+.HUT-4 {
+  animation-delay: 2.5s;
+}
+.HUT-5 {
+  animation-delay: 3.6s;
+}
+
+@keyframes floatSlow {
+  0%,
+  100% {
+    transform: translateY(-50%) translateY(5px);
+  }
+  50% {
+    transform: translateY(-50%) translateY(-5px);
+  } /* 위아래로 10px 유영 */
+}
